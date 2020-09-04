@@ -14,7 +14,7 @@
       "source_ami": "ami-057b204c3eddef019",
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "ami_name": "app_{{user 'jenkins_build'}}_{{user 'git_version'}}"
+      "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}"
     }
   ]
 }
