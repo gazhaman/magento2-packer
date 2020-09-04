@@ -58,6 +58,7 @@
         - '{{magento_root_dir_build}}/pub/static'
         - '{{magento_root_dir_build}}/generated'
         - '{{magento_root_dir_build}}/var/view_preprocessed'
+        - '{{magento_root_dir_build}}/app/etc/env.php'
 
     - name: Step - Compile DI code - Build node
       tags: compile_code
