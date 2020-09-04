@@ -17,12 +17,6 @@
       "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}"},
       "ssh_username": "ec2-user",
       "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}",
-      "launch_block_device_mappings": [
-      {
-      "device_name": "/dev/sda1",
-      "delete_on_termination": true
-      }
-      ]
     }
   ],
   "provisioners": [
