@@ -13,10 +13,10 @@
       "region": "us-east-1",
       "source_ami": "ami-057b204c3eddef019",
       "instance_type": "t2.micro",
-      "run_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}"},
-      "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}"},
+      "run_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"},
+      "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"},
       "ssh_username": "ec2-user",
-      "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"
+      "ami_name": "app_prod_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"
     }
   ],
   "provisioners": [
