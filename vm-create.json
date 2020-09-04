@@ -16,7 +16,7 @@
       "run_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}"},
       "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}"},
       "ssh_username": "ec2-user",
-      "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}",
+      "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"
     }
   ],
   "provisioners": [
