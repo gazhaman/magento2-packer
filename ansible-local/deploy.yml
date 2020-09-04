@@ -12,7 +12,7 @@
         dest: "{{git_root_dir_build}}"
         force: yes
         accept_hostkey: yes
-        clone: no
+        clone: yes
         key_file: "{{git_key_path}}"
         version: "{{git_version}}"
 
