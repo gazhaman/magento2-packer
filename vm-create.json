@@ -24,5 +24,13 @@
       }
       ]
     }
-  ]
+  ],
+  "provisioners": [
+        {
+          "type":            "ansible-local",
+          "playbook_dir":     "./ansible-local",
+          "playbook_file":   "./ansible-local/deploy.yml",
+          "extra_arguments": ["--extra-vars", "\"git_version={{ user `git_version`}}\""]
+        }
+      ]
 }
