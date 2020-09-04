@@ -4,6 +4,7 @@ ansible_become: yes
 git_repo: git@github.com:gazhaman/magento2.git
 git_tmp: /var/www/html/tmp
 git_key_path: /var/www/html/key/id_rsa_github
+git_root_dir_build: /var/www/html/current
 
 
 magento_root_dir_web: /var/www/html/current
