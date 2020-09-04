@@ -16,6 +16,8 @@
       "run_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"},
       "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"},
       "ssh_username": "ec2-user",
+      "vpc_id": "vpc-1639e66e",
+      "subnet_id": "subnet-24a4001b",
       "ami_name": "app_prod_{{user `jenkins_build`}}_{{user `git_version`}}_{{timestamp}}"
     }
   ],
