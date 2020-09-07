@@ -30,7 +30,7 @@
 
         {
           "type": "shell",
-          "inline": ["ansible-playbook /tmp/ansible-remote/deploy.yml -vv"]
+          "inline": ["cd /tmp/ansible-remote && ansible-playbook deploy.yml -vv"]
         },
 
         {
