@@ -1,5 +1,8 @@
 try {
 node ('master'){
+  options {
+        ansiColor('xterm')
+    }
   withCredentials([string(credentialsId: 'aws_access_key', variable: 'aws_access_key'), string(credentialsId: 'aws_secret_key', variable: 'aws_secret_key')])  {
 
   stage('Git checkout - job configuration'){
@@ -8,6 +11,10 @@ node ('master'){
 
   env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM-SS')}"
 
+  stage('test'){
+    echo '\033[34mHello\033[0m \033[33mcolorful\033[0m \033[35mworld!\033[0m'
+  }
+/*
   stage('Build new Image'){
     sh "packer build \
         -var 'aws_access_key=$aws_access_key' \
@@ -17,7 +24,7 @@ node ('master'){
         -var 'timestamp=${BUILD_TIMESTAMP}' \
         vm-create.json"
   }
-
+*/
 }
 }
 }
