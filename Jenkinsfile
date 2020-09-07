@@ -1,8 +1,5 @@
 try {
 node ('master'){
-  options {
-        ansiColor('xterm')
-    }
   withCredentials([string(credentialsId: 'aws_access_key', variable: 'aws_access_key'), string(credentialsId: 'aws_secret_key', variable: 'aws_secret_key')])  {
 
   stage('Git checkout - job configuration'){
