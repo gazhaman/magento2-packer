@@ -1,0 +1,9 @@
+- name: Host - Admin node
+  hosts: admin
+  become: yes
+  tasks:
+    - name: Touch file on Admin node
+      shell: 'touch /var/www/html/test.file'
+
+    - name: Touch file on Admin node
+      command: 'ifconfig'

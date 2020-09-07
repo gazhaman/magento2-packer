@@ -23,6 +23,17 @@
   ],
   "provisioners": [
         {
+          "type": "file",
+          "source": "./ansible-remote",
+          "destination": "/var/www/html"
+        },
+
+        {
+          "type": "shell",
+          "inline": ["ansible-playbook /var/www/html/ansible-remote/deploy.yml -vv"]
+        },
+
+        {
           "type":            "ansible-local",
           "playbook_dir":    "./ansible-local",
           "playbook_file":   "./ansible-local/deploy.yml",
