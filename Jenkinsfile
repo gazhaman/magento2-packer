@@ -9,7 +9,7 @@ node ('master'){
   stage('Build new Image - app_${params.BRANCH}_${env.BUILD_NUMBER}_${BUILD_TIMESTAMP}'){
     sh "packer build \
         -var 'aws_access_key=$aws_access_key' \
-        -var 'aws_secret_key=$aws_access_key' \
+        -var 'aws_secret_key=$aws_secret_key' \
         -var 'jenkins_build=${env.BUILD_NUMBER}' \
         -var 'git_version=${params.BRANCH}' \
         -var 'timestamp = ${BUILD_TIMESTAMP}' \
