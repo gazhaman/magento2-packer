@@ -13,7 +13,8 @@ node ('master'){
   }
 
   stage('Build new Image'){
-    sh "echo ${BUILD_TIMESTAMP} ${params.BRANCH} ${env.BUILD_NUMBER}"
+//    sh "echo ${BUILD_TIMESTAMP} ${params.BRANCH} ${env.BUILD_NUMBER}"
+    sh "packer version"
   }
 
 }
