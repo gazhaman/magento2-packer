@@ -30,6 +30,17 @@
           "group_vars":      "./ansible-local/inventories/group_vars",
           "clean_staging_directory": true,
           "extra_arguments": ["--extra-vars", "\"git_version={{ user `git_version`}}\"", "-vv"]
+        },
+
+        {
+          "type": "file",
+          "source": "./ansible-remote",
+          "destination": "/tmp"
+        },
+
+        {
+          "type": "shell",
+          "inline": ["cd /tmp/ansible-remote && sudo ansible-playbook deploy.yml -vv"]
         }
       ]
 }
