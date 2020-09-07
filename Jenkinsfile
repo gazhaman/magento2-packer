@@ -6,6 +6,8 @@ node ('master'){
   git branch: 'master', credentialsId: 'github', url: 'https://github.com/gazhaman/magento2-packer.git'
   }
 
+  env.BUILD_TIMESTAMP = java.time.LocalDateTime.now()
+
   stage('Build new Image'){
     sh "packer build \
         -var 'aws_access_key=$aws_access_key' \
