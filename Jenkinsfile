@@ -1,22 +1,22 @@
 try {
 node ('master'){
-
-  env.KUBECONFIG="${env.WORKSPACE}/kubeconfig/prod/config-prod"
-  env.TAG="${params.BRANCH}-${env.BUILD_NUMBER}"
-  env.DOCKER_REPO="192.168.30.154:18078"
-  env.APP="app"
-  env.HELM_CHART="production"
-  env.HELM_CHART_DIR="prod"
+  withCredentials([string(credentialsId: 'aws_access_key', variable: 'aws_access_key'), string(credentialsId: 'aws_secret_key', variable: 'aws_secret_key')])  {
 
   stage('Git checkout - job configuration'){
   git branch: 'master', credentialsId: 'github', url: 'https://github.com/gazhaman/magento2-packer.git'
   }
 
-  stage('Build new Image'){
-//    sh "echo ${BUILD_TIMESTAMP} ${params.BRANCH} ${env.BUILD_NUMBER}"
-    sh "packer version"
+  stage('Build new Image - app_${params.BRANCH}_${env.BUILD_NUMBER}_${BUILD_TIMESTAMP}'){
+    sh "packer build \
+        -var 'aws_access_key=$aws_access_key' \
+        -var 'aws_secret_key=$aws_access_key' \
+        -var 'jenkins_build=${env.BUILD_NUMBER}' \
+        -var 'git_version=${params.BRANCH}' \
+        -var 'timestamp = ${BUILD_TIMESTAMP}' \
+        vm-create.json"
   }
 
+}
 }
 }
 catch(err){
