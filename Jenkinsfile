@@ -13,7 +13,7 @@ node ('master'){
   }
 
   stage('Build new Image'){
-    sh "echo ${params.BRANCH} ${env.BUILD_NUMBER} ${env.BUILD_ID}"
+    sh "env"
   }
 
 }
