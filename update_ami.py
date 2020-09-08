@@ -6,6 +6,7 @@ import sys
 import os
 
 # Vars
+"""
 build_number = '13'
 timestamp = '2020/09/07/02-09-950'
 branch = 'master'
@@ -13,6 +14,15 @@ lt_id = 'lt-005ab451cba87f311'
 src_vers = '27'
 asg_name = 'MagentoWEB-ASG1'
 ami_id = None
+"""
+build_number = sys.argv[1]
+timestamp = sys.argv[2]
+branch = sys.argv[3]
+lt_id = sys.argv[4]
+src_vers = sys.argv[5]
+asg_name = sys.argv[6]
+print(sys.argv)
+ami_id = sys.argv[7] if len(sys.argv) == 8 else None
 
 def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id):
 
