@@ -25,6 +25,7 @@ print(sys.argv)
 ami_id = sys.argv[7] if len(sys.argv) == 8 else None
 
 def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id):
+    ec2_client = boto3.client('ec2')
 
     if ami_id is None:
         # AMI Name
@@ -32,7 +33,6 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_i
         print('AMI Name:' + ami_name)
 
         # AMI ID
-        ec2_client = boto3.client('ec2')
         ami_res = ec2_client.describe_images(
             Filters=[
                 {
