@@ -1,3 +1,4 @@
+import sys
 build_number = sys.argv[1]
 timestamp = sys.argv[2]
 branch = sys.argv[3]
