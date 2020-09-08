@@ -37,7 +37,7 @@ lt_res = ec2_client.create_launch_template_version(
     },
     LaunchTemplateId=lt_id,
     SourceVersion=src_vers,
-    VersionDescription=vers_desc,
+    VersionDescription='BUILD_NUMBER:' + build_number + ', DATE:' + timestamp,
 )
 print('New LT version was created:')
 print (lt_res['LaunchTemplateVersion']['LaunchTemplateData']['ImageId'])
