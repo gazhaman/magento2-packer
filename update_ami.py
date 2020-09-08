@@ -27,8 +27,8 @@ ami_id = ec2_client.describe_images(
     ]
     '''
     ImageIds=[
-        'ami-08354c91e8bfefb3b',
-    ],
+        'ami-08354c91e8bfefb3b'
+    ]
 )
 
 print(ami_id)
