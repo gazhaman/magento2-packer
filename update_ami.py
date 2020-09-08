@@ -70,8 +70,7 @@ while ref_status == 'Pending' or ref_status == 'InProgress':
     ref_res = refresh_status()
     ref_status = ref_res['InstanceRefreshes'][0]['Status']
     pprint.pprint(ref_res['InstanceRefreshes'])
-    print('-')*80
-    print('\n')
+    print('-'*80 + '\n')
     time.sleep(10)
 
 if ref_status != 'Successful':
