@@ -43,7 +43,6 @@ print('New LT version was created:')
 print (lt_res['LaunchTemplateVersion']['LaunchTemplateData']['ImageId'])
 print (lt_res['LaunchTemplateVersion']['VersionNumber'])
 '''
-#print(json.dumps(lt_res, indent=4))
 
 # ASG 'Instance Refresh'
 asg_client = boto3.client('autoscaling')
@@ -57,14 +56,6 @@ asg_res = asg_client.start_instance_refresh(
 )
 
 # Describe 'Instance Refresh' status
-"""
-ref_res = asg_client.describe_instance_refreshes(
-    AutoScalingGroupName=asg_name,
-    InstanceRefreshIds=[
-        asg_res['InstanceRefreshId'],
-    ]
-)
-"""
 def refresh_status():
     status = asg_client.describe_instance_refreshes(
         AutoScalingGroupName=asg_name,
@@ -74,14 +65,6 @@ def refresh_status():
     )
     return status
 
-
-
-"""
-ref_status = ref_res['InstanceRefreshes'][0]['Status']
-
-print(ref_status)
-print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
-"""
 ref_status = 'Pending'
 while ref_status == 'Pending' or ref_status == 'InProgress':
     ref_res = refresh_status()
