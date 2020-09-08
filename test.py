@@ -11,4 +11,9 @@ ami_id = sys.argv[7] if len(sys.argv) == 8 else None
 def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id):
     print(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id)
 
+    if ami_id is None:
+        print(ami_id + 'was empty')
+    else
+        print(ami_id)
+
 update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id)
