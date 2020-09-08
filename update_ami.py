@@ -43,7 +43,7 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
         VersionDescription='BUILD_NUMBER:' + build_number + ', DATE:' + timestamp,
     )
     print('New LT was created.')
-    print ('LT Version: ' + lt_res['LaunchTemplateVersion']['VersionNumber'])
+    print ('LT Version: ' + str(lt_res['LaunchTemplateVersion']['VersionNumber']))
 
 
     # ASG 'Instance Refresh'
