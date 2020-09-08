@@ -12,7 +12,7 @@ branch = 'master'
 
 # AMI Name
 ami_name = 'app_' + build_number + '-' + branch + '_' + timestamp
-
+print(ami_name)
 # AMI ID
 ec2_client = boto3.client('ec2')
 ami_id = ec2_client.describe_images(
@@ -20,7 +20,7 @@ ami_id = ec2_client.describe_images(
         {
             'Name': 'name',
             'Values': [
-                ami_name,
+                ami_name
             ]
         }
     ]
