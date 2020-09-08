@@ -69,6 +69,6 @@ print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
 
 while ref_status == 'Pending' or ref_status == 'InProgress':
     print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
-    res_status = ref_res['InstanceRefreshes'][0]['Status']
+    ref_status = ref_res['InstanceRefreshes'][0]['Status']
 
-print(ref_status)    
+print(ref_status)
