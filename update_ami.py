@@ -42,9 +42,8 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
         SourceVersion=src_vers,
         VersionDescription='BUILD_NUMBER:' + build_number + ', DATE:' + timestamp,
     )
-    print('New LT was created:')
-    print (lt_res['LaunchTemplateVersion']['LaunchTemplateData']['ImageId'])
-    print (lt_res['LaunchTemplateVersion']['VersionNumber'])
+    print('New LT was created.')
+    print ('LT Version: ' + lt_res['LaunchTemplateVersion']['VersionNumber'])
 
 
     # ASG 'Instance Refresh'
@@ -57,7 +56,7 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
             'InstanceWarmup': 0
         }
     )
-    print('ASG Instance Refresh started...\n' + 'InstanceRefreshId' + asg_res['InstanceRefreshId'])
+    print('ASG Instance Refresh started...\n' + 'InstanceRefreshId: ' + asg_res['InstanceRefreshId'])
 
     # Describe 'Instance Refresh' status
     def refresh_status():
