@@ -78,4 +78,4 @@ def update_ami():
     if ref_status != 'Successful':
         raise Exception("ASG update failed.\nASG name:" + asg_name + "\nInstance Refresh ID:" + asg_res['InstanceRefreshId'] + "\nStatus:" + ref_status)
 
-update_ami()
+update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name)
