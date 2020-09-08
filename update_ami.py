@@ -20,10 +20,10 @@ ami_id = ec2_client.describe_images(
         {
             'Name': 'name',
             'Values': [
-                'app_13_master_2020/09/07/02-09-950',
-            ],
+                "app_13_master_2020/09/07/02-09-950",
+            ]
         }
-    ],
+    ]
 )
 
 print(ami_id)
