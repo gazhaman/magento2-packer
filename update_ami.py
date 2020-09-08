@@ -13,7 +13,7 @@ lt_id = 'lt-005ab451cba87f311'
 src_vers = '27'
 asg_name = 'MagentoWEB-ASG1'
 
-def update_ami():
+def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
     # AMI Name
     ami_name = 'app_' + build_number + '_' + branch + '_' + timestamp
 
