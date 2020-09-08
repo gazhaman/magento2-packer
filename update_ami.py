@@ -14,8 +14,8 @@ branch = 'master'
 ami_name = 'app_' + build_number + '-' + branch + '_' + timestamp
 
 # AMI ID
- ec2_client = boto3.client('ec2')
- ami_id = client.describe_images(
+ec2_client = boto3.client('ec2')
+ami_id = client.describe_images(
     Filters=[
         {
             'Name': 'Name',
