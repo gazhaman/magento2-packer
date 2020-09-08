@@ -26,4 +26,4 @@ ami_id = ec2_client.describe_images(
     ]
 )
 
-print(ami_id)
+print(ami_id[0])
