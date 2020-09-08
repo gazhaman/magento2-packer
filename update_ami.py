@@ -70,6 +70,7 @@ while ref_status == 'Pending' or ref_status == 'InProgress':
     ref_res = refresh_status()
     ref_status = ref_res['InstanceRefreshes'][0]['Status']
     pprint.pprint(ref_res['InstanceRefreshes'])
-    time.sleep(3)
+    time.sleep(10)
 
-print(ref_status)
+if ref_status != 'Pending':
+    raise Exception("ASG update failed.\nASG name:" + asg_name + "\nInstance Refresh ID:" + asg_res['InstanceRefreshId'] + "\nStatus:" + ref_status)
