@@ -20,7 +20,7 @@ ami_id = ec2_client.describe_images(
         {
             'Name': 'name',
             'Values': [
-                ami_name
+                'ami_name'
             ]
         }
     ]
