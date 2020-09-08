@@ -64,4 +64,4 @@ ref_res = asg_client.describe_instance_refreshes(
     ]
 )
 print(ref_res['InstanceRefreshes'][0]['Status'])
-print(ref_res)
+print(json.dumps(ref_res['InstanceRefreshes']), indent=4)
