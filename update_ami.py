@@ -18,7 +18,7 @@ ec2_client = boto3.client('ec2')
 ami_id = ec2_client.describe_images(
     Filters=[
         {
-            'Name': 'AMI Name',
+            'Name': 'name',
             'Values': [
                 ami_name,
             ]
