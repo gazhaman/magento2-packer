@@ -26,5 +26,6 @@ ami_res = ec2_client.describe_images(
     ]
 )
 
-#ami_id = ami_res[]
+ami_id = ami_res['Images'][0]
+print(ami_id)
 print(json.dumps(ami_res, indent=4))
