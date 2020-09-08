@@ -12,25 +12,30 @@ branch = 'master'
 lt_id = 'lt-005ab451cba87f311'
 src_vers = '27'
 asg_name = 'MagentoWEB-ASG1'
+ami_id = None
 
-def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
-    # AMI Name
-    ami_name = 'app_' + build_number + '_' + branch + '_' + timestamp
-    print('AMI Name:' + ami_name)
+def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id):
 
-    # AMI ID
-    ec2_client = boto3.client('ec2')
-    ami_res = ec2_client.describe_images(
-        Filters=[
-            {
-                'Name': 'name',
-                'Values': [
-                    ami_name
-                ]
-            }
-        ]
-    )
-    ami_id = ami_res['Images'][0]['ImageId']
+    if ami_id is None:
+        # AMI Name
+        ami_name = 'app_' + build_number + '_' + branch + '_' + timestamp
+        print('AMI Name:' + ami_name)
+
+        # AMI ID
+        ec2_client = boto3.client('ec2')
+        ami_res = ec2_client.describe_images(
+            Filters=[
+                {
+                    'Name': 'name',
+                    'Values': [
+                        ami_name
+                    ]
+                }
+            ]
+        )
+        ami_id = ami_res['Images'][0]['ImageId']
+
+
     print('AMI ID:' + ami_id)
 
     # Create new 'Launch Template' version
@@ -80,4 +85,4 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
     if ref_status != 'Successful':
         raise Exception("ASG update failed.\nASG name:" + asg_name + "\nInstance Refresh ID:" + asg_res['InstanceRefreshId'] + "\nStatus:" + ref_status)
 
-update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name)
+update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id)
