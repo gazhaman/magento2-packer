@@ -16,6 +16,7 @@ asg_name = 'MagentoWEB-ASG1'
 def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
     # AMI Name
     ami_name = 'app_' + build_number + '_' + branch + '_' + timestamp
+    print('AMI Name:' + ami_name)
 
     # AMI ID
     ec2_client = boto3.client('ec2')
@@ -30,7 +31,8 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
         ]
     )
     ami_id = ami_res['Images'][0]['ImageId']
-    '''
+    print('AMI ID:' + ami_id)
+
     # Create new 'Launch Template' version
     lt_res = ec2_client.create_launch_template_version(
         LaunchTemplateData={
@@ -40,10 +42,10 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
         SourceVersion=src_vers,
         VersionDescription='BUILD_NUMBER:' + build_number + ', DATE:' + timestamp,
     )
-    print('New LT version was created:')
+    print('New LT was created:')
     print (lt_res['LaunchTemplateVersion']['LaunchTemplateData']['ImageId'])
     print (lt_res['LaunchTemplateVersion']['VersionNumber'])
-    '''
+
 
     # ASG 'Instance Refresh'
     asg_client = boto3.client('autoscaling')
@@ -55,6 +57,7 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name):
             'InstanceWarmup': 0
         }
     )
+    print('ASG Instance Refresh started...\n' + 'InstanceRefreshId' + asg_res['InstanceRefreshId'])
 
     # Describe 'Instance Refresh' status
     def refresh_status():
