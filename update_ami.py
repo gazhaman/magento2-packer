@@ -16,9 +16,13 @@ ami_name = 'app_' + build_number + '-' + branch + '_' + timestamp
 # AMI ID
 ec2_client = boto3.client('ec2')
 ami_id = ec2_client.describe_images(
-    
-    ImageIds=[
-        'ami-08354c91e8bfefb3b'
+    Filters=[
+        {
+            'Name': 'name',
+            'Values': [
+                "app_13_master_2020/09/07/02-09-950",
+            ]
+        }
     ]
 )
 
