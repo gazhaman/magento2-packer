@@ -1,6 +1,6 @@
 import boto3
 import time
-import pprint
+import pprint.pprint
 import json
 import sys
 import os
@@ -12,10 +12,10 @@ branch = 'master'
 
 # AMI Name
 ami_name = 'app_' + build_number + '_' + branch + '_' + timestamp
-print(ami_name)
+
 # AMI ID
 ec2_client = boto3.client('ec2')
-ami_id = ec2_client.describe_images(
+ami_res = ec2_client.describe_images(
     Filters=[
         {
             'Name': 'name',
@@ -26,4 +26,5 @@ ami_id = ec2_client.describe_images(
     ]
 )
 
-print(ami_id)
+#ami_id = ami_res[]
+pprint(ami_id)
