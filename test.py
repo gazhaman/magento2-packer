@@ -12,7 +12,8 @@ def update_ami(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_i
     print(build_number, timestamp, branch, lt_id, src_vers, asg_name, ami_id)
 
     if ami_id is None:
-        print(ami_id + 'was empty')
+        print(ami_id)
+        print('is empty')
     else:
         print(ami_id)
 
