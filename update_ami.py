@@ -27,4 +27,4 @@ ami_res = ec2_client.describe_images(
 )
 
 #ami_id = ami_res[]
-print(json.dump(ami_id))
+print(json.dump(ami_res))
