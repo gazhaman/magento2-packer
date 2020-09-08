@@ -30,7 +30,6 @@ ami_res = ec2_client.describe_images(
 ami_id = ami_res['Images'][0]['ImageId']
 
 # Create new 'Launch Template' version
-#vers_desc = 'BUILD_NUMBER:' + build_number ', DATE:' + timestamp
 lt_res = ec2_client.create_launch_template_version(
     LaunchTemplateData={
         'ImageId': ami_id,
@@ -43,4 +42,4 @@ print('New LT version was created:')
 print (lt_res['LaunchTemplateVersion']['LaunchTemplateData']['ImageId'])
 print (lt_res['LaunchTemplateVersion']['VersionNumber'])
 
-print(json.dumps(lt_res, indent=4))
+#print(json.dumps(lt_res, indent=4))
