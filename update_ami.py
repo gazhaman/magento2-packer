@@ -86,7 +86,7 @@ ref_status = 'Pending'
 while ref_status == 'Pending' or ref_status == 'InProgress':
     ref_res = refresh_status()
     ref_status = ref_res['InstanceRefreshes'][0]['Status']
-    print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
+    pprint.pprint(ref_res['InstanceRefreshes'])
     time.sleep(3)
 
-print(ref_status)    
+print(ref_status)
