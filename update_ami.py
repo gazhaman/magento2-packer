@@ -57,21 +57,36 @@ asg_res = asg_client.start_instance_refresh(
 )
 
 # Describe 'Instance Refresh' status
+"""
 ref_res = asg_client.describe_instance_refreshes(
     AutoScalingGroupName=asg_name,
     InstanceRefreshIds=[
         asg_res['InstanceRefreshId'],
     ]
 )
-
-ref_status = ref_res['InstanceRefreshes'][0]['Status']
 """
+def refresh_status():
+    status = asg_client.describe_instance_refreshes(
+        AutoScalingGroupName=asg_name,
+        InstanceRefreshIds=[
+            asg_res['InstanceRefreshId'],
+        ]
+    )
+    return status
+
+
+
+"""
+ref_status = ref_res['InstanceRefreshes'][0]['Status']
+
 print(ref_status)
 print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
 """
+ref_status = 'Pending'
 while ref_status == 'Pending' or ref_status == 'InProgress':
-    ref_status += ref_res['InstanceRefreshes'][0]['Status']
+    ref_res = refresh_status()
+    ref_status = ref_res['InstanceRefreshes'][0]['Status']
     print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
-    time.sleep(1)
+    time.sleep(3)
 
 print(ref_status)    
