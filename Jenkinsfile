@@ -6,7 +6,7 @@ node ('master'){
   git branch: 'master', credentialsId: 'github', url: 'https://github.com/gazhaman/magento2-packer.git'
   }
 
-  env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM-SS')}"
+  env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM')}"
 
   stage('Build new Image'){
     ansiColor('css') {
