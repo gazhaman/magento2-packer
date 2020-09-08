@@ -65,11 +65,11 @@ ref_res = asg_client.describe_instance_refreshes(
 )
 
 ref_status = ref_res['InstanceRefreshes'][0]['Status']
+"""
 print(ref_status)
 print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
-time.sleep(1)
-print(ref_status)
-print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
-time.sleep(10)
-print(ref_status)
-print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
+"""
+while ref_status == 'Pending' or ref_status == 'InProgress':
+    ref_status = ref_res['InstanceRefreshes'][0]['Status']
+    print(json.dumps(ref_res['InstanceRefreshes'],indent=4))
+    time.sleep(3)
