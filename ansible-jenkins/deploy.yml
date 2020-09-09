@@ -9,3 +9,6 @@
                             -var 'git_version={{git_version}}' \
                             -var 'timestamp={{timestamp}}' \
                              vm-create.json"
+    - name: test
+      tags: test
+      shell: "env && echo '1' && sleep 10 && echo 2"
