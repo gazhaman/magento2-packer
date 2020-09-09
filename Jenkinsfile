@@ -12,9 +12,11 @@ node ('master'){
   env.LT_ID_WEB = 'lt-005ab451cba87f311'
   env.SRC_VER_WEB = '27'
   env.ASG_NAME_WEB = 'MagentoWEB-ASG1'
+  env.AWS_REG = 'us-east-1'
 
   stage('Build new Image'){
-    ansiColor('css') {
+    if (${params.AMI_ID} == ''){
+    ansiColor('gnome-terminal') {
     sh "packer build \
         -var 'aws_access_key=$aws_access_key' \
         -var 'aws_secret_key=$aws_secret_key' \
@@ -23,6 +25,7 @@ node ('master'){
         -var 'timestamp=${BUILD_TIMESTAMP}' \
         vm-create.json"
       }
+    }
   }
 
   stage('Update ASG with new AMI'){
@@ -31,7 +34,8 @@ node ('master'){
                               ${params.BRANCH}, \
                               ${env.LT_ID_WEB}, \
                               ${env.SRC_VER_WEB}, \
-                              ${env.ASG_NAME_WEB}"
+                              ${env.ASG_NAME_WEB}, \
+                              ${params.AMI_ID}"
   }
 
 
