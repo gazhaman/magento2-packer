@@ -7,6 +7,7 @@ node ('master'){
   }
 
   env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM')}"
+  env.PYTHONUNBUFFERED=1
 /*
   stage('Build new Image'){
     ansiColor('css') {
