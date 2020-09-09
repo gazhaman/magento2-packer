@@ -37,7 +37,7 @@ node ('master'){
   }
 
   stage('Update ASGs with new AMI'){
-    parallel MagentoWEB-ASG: {
+    parallel 'MagentoWEB-ASG': {
       sh "python3 update_ami.py ${env.BUILD_NUMBER}\
                                 ${BUILD_TIMESTAMP} \
                                 ${params.BRANCH} \
@@ -45,7 +45,7 @@ node ('master'){
                                 ${env.SRC_VER_WEB} \
                                 ${env.ASG_NAME_WEB} \
                                 ${params.AMI_ID}"
-    }, MagentoADMIN-ASG: {
+    }, 'MagentoADMIN-ASG': {
       sh "python3 update_ami.py ${env.BUILD_NUMBER}\
                                 ${BUILD_TIMESTAMP} \
                                 ${params.BRANCH} \
