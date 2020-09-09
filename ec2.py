@@ -23,4 +23,4 @@ ec2_res = ec2_client.describe_instances(
     ]
 )
 
-pprint.pprint(ec2_res['Reservations']['Instances'])
+pprint.pprint(ec2_res['Reservations']['Instances'][0])
