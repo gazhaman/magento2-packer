@@ -15,7 +15,7 @@ node ('master'){
   env.AWS_DEFAULT_REGION = 'us-east-1'
   env.AWS_ACCESS_KEY_ID = "$aws_access_key"
   env.AWS_SECRET_ACCESS_KEY = "$aws_secret_key"
-
+/*
   stage('Build new Image'){
     if (params.AMI_ID == ''){
     ansiColor('gnome-terminal') {
@@ -29,7 +29,7 @@ node ('master'){
       }
     }
   }
-
+*/
   stage('Update ASG with new AMI'){
     sh "python3 update_ami.py ${env.BUILD_NUMBER}\
                               ${BUILD_TIMESTAMP} \
