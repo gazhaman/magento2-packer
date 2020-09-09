@@ -1,0 +1,73 @@
+- name: Host - Build node
+  hosts: 127.0.0.1
+  become: yes
+  tasks:
+#-------------------------- Git checkout ----------------------------------
+    - name: Step - Git checkout {{git_version}}
+      tags: git_checkout
+      environment:
+        TMPDIR: "{{git_tmp}}"
+      git:
+        repo: "{{git_repo}}"
+        dest: "{{git_root_dir_build}}"
+        force: yes
+        accept_hostkey: yes
+        clone: yes
+        key_file: "{{git_key_path}}"
+        version: "{{git_version}}"
+
+    - name: Step 2.1 - Get local commit SHA
+      tags: git_checkout
+      command: 'chdir={{git_root_dir_build}} git rev-parse HEAD'
+      register: local_commit
+
+    - name: Step 2.2 - Get remote commit SHA
+      tags: git_checkout
+      shell: "cd {{git_root_dir_build}} && GIT_SSH_COMMAND='ssh -i {{git_key_path}}  -o IdentitiesOnly=yes' git ls-remote {{git_repo}}  {{git_version}} | cut -f1 | xargs git rev-list -n 1"
+      register: remote_commit
+
+    - name: Step 2.3 - Output commits
+      tags: git_checkout
+      debug: msg="local commit - {{local_commit.stdout}} \n remote commit - {{remote_commit.stdout}}"
+
+    - name: Step 2.4 - Compare commits
+      tags: git_checkout
+      fail: msg="Local commit - {{local_commit.stdout}}  \n not equal to \n Remote commit - {{remote_commit.stdout}} "
+      when: local_commit.stdout != remote_commit.stdout
+#-------------------------------------------------------------------------------
+    - name: Step - Clean vendor folder
+      tags: clean_vendor
+      command: 'rm -rf {{magento_root_dir_build}}/vendor'
+
+    - name: Step  - Composer install - Build node
+      tags: composer_install
+      command: 'chdir={{magento_root_dir_build}} /usr/local/bin/composer install --prefer-dist'
+
+#    - name: Apply patches
+#      tags: apply_patches_build
+#      shell: "cd {{magento_root_dir_build}}/ && for i in patches/*.patch; do echo $i && patch -p1 < $i; done"
+
+    - name: Enable all modules
+      tags: enable_modules_build
+      command: 'chdir={{magento_root_dir_build}} bin/magento module:enable --all --ansi --no-interaction'
+
+    - name: Clean static assets - Build node
+      tags: clean_static_assets
+      command: rm -rf {{item}}
+      loop:
+        - '{{magento_root_dir_build}}/pub/static'
+        - '{{magento_root_dir_build}}/generated'
+        - '{{magento_root_dir_build}}/var/view_preprocessed'
+        - '{{magento_root_dir_build}}/app/etc/env.php'
+
+    - name: Step - Compile DI code - Build node
+      tags: compile_code
+      command: 'chdir={{magento_root_dir_build}} bin/magento setup:di:compile'
+
+    - name: Step - Deploy static content - Build node
+      tags: static_deploy
+      command: 'chdir={{magento_root_dir_build}} bin/magento setup:static-content:deploy -j 6 -f --no-interaction --no-ansi en_US  --no-html-minify'
+
+    - name: Step - Chown to nginx - Build node
+      tags: chown_nginx
+      shell: "chown -R nginx:nginx {{magento_root_dir_build}}/"
