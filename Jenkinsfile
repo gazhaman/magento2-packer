@@ -6,9 +6,13 @@ node ('master'){
   git branch: 'master', credentialsId: 'github', url: 'https://github.com/gazhaman/magento2-packer.git'
   }
 
+//Vars
   env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM')}"
   env.PYTHONUNBUFFERED=1
-/*
+  env.LT_ID_WEB = 'lt-005ab451cba87f311'
+  env.SRC_VER_WEB = '27'
+  env.ASG_NAME_WEB = 'MagentoWEB-ASG1'
+
   stage('Build new Image'){
     ansiColor('css') {
     sh "packer build \
@@ -20,24 +24,20 @@ node ('master'){
         vm-create.json"
       }
   }
-*/
+
+  stage('Update ASG with new AMI'){
+    sh "python3 update_ami.py ${env.BUILD_NUMBER},\
+                              ${BUILD_TIMESTAMP}, \
+                              ${params.BRANCH}, \
+                              ${env.LT_ID_WEB}, \
+                              ${env.SRC_VER_WEB}, \
+                              ${env.ASG_NAME_WEB}"
+  }
+
 
   dir('./ansible-jenkins'){
-/*
-  stage('Packer build'){
-    ansiColor('css') {
-    sh "ansible-playbook -t packer_build deploy.yml -e 'aws_access_key=$aws_access_key \
-                                                        aws_secret_key=$aws_secret_key \
-                                                        jenkins_build=${env.BUILD_NUMBER} \
-                                                        git_version=${params.BRANCH} \
-                                                        timestamp=${BUILD_TIMESTAMP}' -vv"
-    }
-  }
-  */
-  stage('test'){
-    sh "ansible-playbook -t test deploy.yml -vv"
-  }
-}
+
+ }
 }
 }
 }
