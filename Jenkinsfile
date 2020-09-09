@@ -12,7 +12,9 @@ node ('master'){
   env.LT_ID_WEB = 'lt-005ab451cba87f311'
   env.SRC_VER_WEB = '27'
   env.ASG_NAME_WEB = 'MagentoWEB-ASG1'
-  env.AWS_REG = 'us-east-1'
+  env.AWS_DEFAULT_REGION = 'us-east-1'
+  env.AWS_ACCESS_KEY_ID = ${aws_access_key}
+  env.AWS_SECRET_ACCESS_KEY = ${aws_secret_key}
 
   stage('Build new Image'){
     if (params.AMI_ID == ''){
