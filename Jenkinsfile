@@ -15,7 +15,7 @@ node ('master'){
   env.AWS_REG = 'us-east-1'
 
   stage('Build new Image'){
-    if (${params.AMI_ID} == ''){
+    if (params.AMI_ID == ''){
     ansiColor('gnome-terminal') {
     sh "packer build \
         -var 'aws_access_key=$aws_access_key' \
