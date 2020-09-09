@@ -20,7 +20,8 @@ node ('master'){
       }
   }
 */
-  dir(./ansible-jenkins){
+  dir('./ansible-jenkins'){
+    
   stage('Packer build'){
     ansiColor('css') {
     sh "ansible-playbook -t packer_build deploy.yml -e  'aws_access_key=$aws_access_key' \
