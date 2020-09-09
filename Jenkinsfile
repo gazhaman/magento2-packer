@@ -35,7 +35,7 @@ node ('master'){
   }
   */
   stage('test'){
-    sh "ansible-playbook -t test deploy.yml"
+    sh "ansible-playbook -t test deploy.yml -vv"
   }
 }
 }
