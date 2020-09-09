@@ -1,14 +1,3 @@
-- name: Host - Admin node
-  hosts: admin
-  become: yes
-  tasks:
-    - name: Touch file on Admin node
-      shell: 'touch /var/www/html/test.file'
-    - name: Touch file on Admin node
-      command: 'ifconfig'      
-#-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
-
 - name: Host - Build node
   hosts: 127.0.0.1
   become: yes

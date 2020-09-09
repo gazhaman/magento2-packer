@@ -7,7 +7,7 @@ node ('master'){
   }
 
   env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM')}"
-
+/*
   stage('Build new Image'){
     ansiColor('css') {
     sh "packer build \
@@ -18,6 +18,16 @@ node ('master'){
         -var 'timestamp=${BUILD_TIMESTAMP}' \
         vm-create.json"
       }
+  }
+*/
+  stage('Packer build'){
+    ansiColor('css') {
+    sh "ansible-playbook -t packer_build deploy.yml -e  'aws_access_key=$aws_access_key' \
+                                                    -e  'aws_secret_key=$aws_secret_key' \
+                                                    -e  'jenkins_build=${env.BUILD_NUMBER}' \
+                                                    -e  'git_version=${params.BRANCH}' \
+                                                    -e  'timestamp=${BUILD_TIMESTAMP}' -vv"
+    }
   }
 
 }

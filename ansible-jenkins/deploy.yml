@@ -1,0 +1,11 @@
+- name: Host - Jenkins
+  hosts: 127.0.0.1
+  tasks:
+    - name: Packer build
+      tags: packer_build
+      shell: "packer build  -var 'aws_access_key={{aws_access_key}}' \
+                            -var 'aws_secret_key={{aws_secret_key}} \
+                            -var 'jenkins_build={{jenkins_build}}' \
+                            -var 'git_version={{git_version}}' \
+                            -var 'timestamp={{timestamp}}' \
+                             vm-create.json"

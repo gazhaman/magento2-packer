@@ -1,0 +1,6 @@
+[jenkins]
+127.0.0.1 ansible_connection=local
+
+[remote]
+varnish ansible_host=172.31.60.152 ansible_user=ec2-user ansible_ssh_private_key_file=admin_id.rsa ansible_become=yes
+admin ansible_host=172.31.60.152 ansible_user=ec2-user ansible_ssh_private_key_file=admin_id.rsa ansible_become=yes
