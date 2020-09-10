@@ -8,7 +8,7 @@ import re
 
 def update_hosts (tag_value, hosts_name):
     hosts_path = './ansible-jenkins/inventories/hosts'
-    '''
+
     # get ip address by tag=Name value=<value>
     ec2_client = boto3.client('ec2')
     ec2_res = ec2_client.describe_instances(
@@ -29,8 +29,7 @@ def update_hosts (tag_value, hosts_name):
     )
 
     ip_admin = ec2_res['Reservations'][0]['Instances'][0]['PublicIpAddress']
-    '''
-    ip_admin = '10.10.10.10'
+
     # update hosts file
     f = open(hosts_path,'r')
     str_in = f.read()
@@ -39,6 +38,8 @@ def update_hosts (tag_value, hosts_name):
     f = open(hosts_path,'w')
     f.write(str_out)
     f.close()
+
+    print('hosts file updated.\n' + hosts_name +':'+ ip_admin)
 
 # run
 update_hosts('MagentoAdmin', 'admin')
