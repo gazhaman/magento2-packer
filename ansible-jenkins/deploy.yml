@@ -16,6 +16,8 @@
 
 - name: Host - Admin
   hosts: admin
+  become: yes
+  become_user: nginx
   tasks:
     - name: Setup upgrade
       tags: setup_upgrade

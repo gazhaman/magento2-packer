@@ -1,1 +1,2 @@
 ansible_user: ec2-user
+magento_root_dir_web: /var/www/html/current
