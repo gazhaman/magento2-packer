@@ -28,19 +28,18 @@ def update_hosts (tag_value, hosts_name):
         ]
     )
 
-    ip_admin = ec2_res['Reservations'][0]['Instances'][0]['PublicIpAddress']
+    ip = ec2_res['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
     # update hosts file
     f = open(hosts_path,'r')
     str_in = f.read()
-    str_out = re.sub(hosts_name + ' ansible_host=\d{1,4}\.\d{1,4}\.\d{1,4}\.\d{1,4}', hosts_name + ' ansible_host='+ip_admin,str_in)
+    str_out = re.sub(hosts_name + ' ansible_host=\d{1,4}\.\d{1,4}\.\d{1,4}\.\d{1,4}', hosts_name + ' ansible_host='+ip,str_in)
     f.close()
     f = open(hosts_path,'w')
     f.write(str_out)
     f.close()
 
-    print('hosts file updated.\n' + hosts_name +':'+ ip_admin)
+    print('hosts file updated.\n' + hosts_name +':'+ ip)
 
 # run
-#update_hosts('MagentoAdmin', 'admin')
-update_hosts('BaseImage-v0.0', 'admin')
+update_hosts('MagentoAdmin', 'admin')
