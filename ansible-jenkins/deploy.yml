@@ -1,14 +1,42 @@
-- name: Host - Jenkins
-  hosts: 127.0.0.1
+- name: Host - Varnish
+  hosts: varnish
+  become: yes
   tasks:
-    - name: Packer build
-      tags: packer_build
-      shell: "packer build  -var 'aws_access_key={{aws_access_key}}' \
-                            -var 'aws_secret_key={{aws_secret_key}}' \
-                            -var 'jenkins_build={{jenkins_build}}' \
-                            -var 'git_version={{git_version}}' \
-                            -var 'timestamp={{timestamp}}' \
-                             vm-create.json"
-    - name: test
-      tags: test
-      shell: "env && echo '1' && sleep 10 && echo 2"
+    - name: Enable maintenance (WEB group)
+      tags: maintenance_enable_web
+      shell: "if [[ $(/usr/bin/varnishadm vcl.list | grep -o maintenance) != 'maintenance' ]];then /usr/bin/varnishadm vcl.load maintenance /etc/varnish/maintenance.vcl ;else echo 'Already load' ;fi"
+
+    - name: Enable maintenance (WEB group)
+      tags: maintenance_enable_web
+      shell: "/usr/bin/varnishadm vcl.use maintenance"
+
+    - name: Disable maintenance - Varnish node
+      tags: maintenance_disable_web
+      shell: "/usr/bin/varnishadm vcl.use boot"
+
+- name: Host - Admin
+  hosts: admin
+  tasks:
+    - name: Setup upgrade
+      tags: setup_upgrade
+      command: 'chdir={{magento_root_dir_web}} bin/magento setup:upgrade --keep-generated'
+
+    - name: Step - Enable Magento cache - WEB node
+      tags: enable_magento_cache
+      command: 'chdir={{magento_root_dir_web}} bin/magento cache:enable '
+
+    - name: Clean Magento Cache
+      tags: clean_magento_cache
+      command: 'chdir={{magento_root_dir_web}} bin/magento cache:clean'
+
+    - name: Clean Magento Cache
+      tags: clean_magento_cache
+      command: 'chdir={{magento_root_dir_web}} bin/magento cache:flush'
+
+    - name: Enable crontab - MagentoAdmin node
+      tags: enable_crontab
+      command: 'chdir={{magento_root_dir_web}} bin/magento cron:install'
+
+    - name: Run JobUnlocker - MagentoAdmin node
+      tags: run_missedjobhandler
+      command: 'chdir={{magento_root_dir_web}} php ./deployment/tools/Cron/MissedJobHandler.php'

@@ -36,6 +36,12 @@ node ('master'){
     }
   }
 
+  dir('./ansible-jenkins'){
+    stage('Enable maintenance'){
+      sh "ansible-playbook -t maintenance_enable_web deploy.yml -vv"
+    }
+  }
+
   stage('Update ASGs with new AMI'){
     parallel 'MagentoWEB-ASG': {
       sh "python3 update_ami.py ${env.BUILD_NUMBER}\
@@ -57,8 +63,31 @@ node ('master'){
     }
   }
 
+  stage('Update hosts file'){
+    sh "python3 ec2.py"
+  }
 
   dir('./ansible-jenkins'){
+
+  stage('Setup upgrade'){
+    sh "ansible-playbook -t setup_upgrade deploy.yml -vv"
+  }
+
+  stage('Enable Magento cache'){
+    sh "ansible-playbook -t enable_magento_cache deploy.yml -vv"
+  }
+
+  stage('Clean Magento cache'){
+    sh "ansible-playbook -t clean_magento_cache deploy.yml -vv"
+  }
+
+  stage('Enable crontab'){
+    sh "ansible-playbook -t enable_crontab deploy.yml -vv"
+  }
+
+  stage('Disable maintenance'){
+    sh "ansible-playbook -t maintenance_disable_web deploy.yml -vv"
+  }
 
  }
 }
