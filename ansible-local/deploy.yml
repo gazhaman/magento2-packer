@@ -1,4 +1,4 @@
-- name: Host - Build node
+- name: Host
   hosts: 127.0.0.1
   become: yes
   tasks:
@@ -39,7 +39,7 @@
       tags: clean_vendor
       command: 'rm -rf {{magento_root_dir_build}}/vendor'
 
-    - name: Step  - Composer install - Build node
+    - name: Step  - Composer install
       tags: composer_install
       command: 'chdir={{magento_root_dir_build}} /usr/local/bin/composer install --prefer-dist'
 
@@ -51,7 +51,7 @@
       tags: enable_modules_build
       command: 'chdir={{magento_root_dir_build}} bin/magento module:enable --all --ansi --no-interaction'
 
-    - name: Clean static assets - Build node
+    - name: Clean static assets
       tags: clean_static_assets
       command: rm -rf {{item}}
       loop:
@@ -60,14 +60,26 @@
         - '{{magento_root_dir_build}}/var/view_preprocessed'
         - '{{magento_root_dir_build}}/app/etc/env.php'
 
-    - name: Step - Compile DI code - Build node
+    - name: Step - Compile DI code
       tags: compile_code
       command: 'chdir={{magento_root_dir_build}} bin/magento setup:di:compile'
 
-    - name: Step - Deploy static content - Build node
+    - name: Step - Deploy static content
       tags: static_deploy
       command: 'chdir={{magento_root_dir_build}} bin/magento setup:static-content:deploy -j 6 -f --no-interaction --no-ansi en_US  --no-html-minify'
 
-    - name: Step - Chown to nginx - Build node
+    - name: Step - Chown to nginx
       tags: chown_nginx
       shell: "chown -R nginx:nginx {{magento_root_dir_build}}/"
+
+    - name: Step - Move 'view_preprocessed'
+      tags: move_view_preprocessed
+      shell: "mv {{magento_root_dir_build}}/var/view_preprocessed {{magento_view_dir}}/"
+
+    - name: Clean mount folders
+      tags: clean_mount_folders
+      command: rm -rf {{item}}
+      loop:
+        - '{{magento_root_dir_build}}/pub/media'
+        - '{{magento_root_dir_build}}/var'
+        - '{{magento_root_dir_build}}/app/etc'
