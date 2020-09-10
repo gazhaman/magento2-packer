@@ -42,4 +42,5 @@ def update_hosts (tag_value, hosts_name):
     print('hosts file updated.\n' + hosts_name +':'+ ip_admin)
 
 # run
-update_hosts('MagentoAdmin', 'admin')
+#update_hosts('MagentoAdmin', 'admin')
+update_hosts('BaseImage-v0.0', 'admin')
