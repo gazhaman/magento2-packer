@@ -4,6 +4,7 @@ import pprint
 import json
 import sys
 import os
+import re
 
 def update_hosts (tag_value, hosts_name):
     hosts_path = './ansible-jenkins/inventories/hosts'
