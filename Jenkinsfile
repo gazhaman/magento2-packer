@@ -6,18 +6,27 @@ node ('master'){
   git branch: 'master', credentialsId: 'github', url: 'https://github.com/gazhaman/magento2-packer.git'
   }
 
-//Vars
+// general vars
   env.BUILD_TIMESTAMP = "${new Date().format('yyyy/MM/dd/hh-MM')}"
   env.PYTHONUNBUFFERED=1
 
+// packer vars
+  env.SOURCE_AMI = 'ami-0d15bdf2c7c21ffa7'
+  env.INSTANCE_TYPE = 't2.micro'
+  env.VPC_ID = 'vpc-1639e66e'
+  env.SUBNET_ID = 'subnet-24a4001b'
+
+// MagentoWEB ASG vars
   env.LT_ID_WEB = 'lt-005ab451cba87f311'
   env.SRC_VER_WEB = '27'
   env.ASG_NAME_WEB = 'MagentoWEB-ASG1'
 
+//MagentoAdmin ASG vars
   env.LT_ID_ADMIN = 'lt-0c94b7ada80b6eba0'
   env.SRC_VER_ADMIN = '2'
   env.ASG_NAME_ADMIN = 'MagentoAdmin-ASG'
 
+// AWS vars
   env.AWS_DEFAULT_REGION = 'us-east-1'
   env.AWS_ACCESS_KEY_ID = "$aws_access_key"
   env.AWS_SECRET_ACCESS_KEY = "$aws_secret_key"
@@ -31,6 +40,10 @@ node ('master'){
         -var 'jenkins_build=${env.BUILD_NUMBER}' \
         -var 'git_version=${params.BRANCH}' \
         -var 'timestamp=${BUILD_TIMESTAMP}' \
+        -var 'source_ami=${env.SOURCE_AMI}' \
+        -var 'instance_type=${env.INSTANCE_TYPE}' \
+        -var 'vpc_id=${env.VPC_ID}' \
+        -var 'subnet_id=${env.SUBNET_ID}' \
         vm-create.json"
       }
     }

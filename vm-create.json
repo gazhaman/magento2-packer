@@ -4,21 +4,27 @@
     "aws_secret_key": "",
     "jenkins_build":"",
     "git_version": "",
-    "timestamp": ""
+    "timestamp": "",
+    "region": "",
+    "source_ami": "",
+    "instance_type": "",
+    "vpc_id": "",
+    "subnet_id": ""
+
   },
   "builders": [
     {
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
-      "region": "us-east-1",
-      "source_ami": "ami-0fcf481a5ff6cd0eb",
-      "instance_type": "t2.micro",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "{{user `instance_type`}}",
       "run_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{user `timestamp`}}"},
       "snapshot_tags": {"Name": "packer_deploy_{{user `jenkins_build`}}_{{user `git_version`}}_{{user `timestamp`}}"},
       "ssh_username": "ec2-user",
-      "vpc_id": "vpc-1639e66e",
-      "subnet_id": "subnet-24a4001b",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
       "ami_name": "app_{{user `jenkins_build`}}_{{user `git_version`}}_{{user `timestamp`}}"
     }
   ],
