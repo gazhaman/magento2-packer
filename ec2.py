@@ -103,7 +103,7 @@ def clean_ebs_snapshots(num):
 
     # delete Snapshots
     if len(snap_list) > num:
-        snap_del = snap_list[:(len(ami_list) - num)]
+        snap_del = snap_list[:(len(snap_list) - num)]
         print('Deleted Snapshots:\n')
         for i in snap_del:
             #res = ec2_client.delete_snapshot(SnapshotId=i['SnapshotId'])
