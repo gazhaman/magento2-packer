@@ -38,6 +38,6 @@
         group: nginx
         state: link
       loop:
-        - { src: var, dest: var }
-        - { src: etc, dest: app/etc }
-        - { src: media, dest: pub/media }
+        - { src: var, dst: var }
+        - { src: etc, dst: app/etc }
+        - { src: media, dst: pub/media }
