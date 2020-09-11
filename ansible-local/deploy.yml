@@ -108,8 +108,6 @@
       file:
         src: '{{efs_mount_point}}/{{item.src}}'
         dest: '{{magento_root_dir_build}}/{{item.dst}}'
-        owner: nginx
-        group: nginx
         state: link
         force: yes
       loop:
