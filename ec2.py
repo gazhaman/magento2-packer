@@ -89,7 +89,7 @@ def clean_ebs_snapshots(num):
         },
     ]
     )
-    pprint.pprint(snap_res)
+    pprint.pprint(snap_res['Snapshots'])
 
 
 
