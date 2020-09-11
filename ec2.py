@@ -44,9 +44,8 @@ def update_hosts (tag_value, hosts_name):
 def clean_ami(num):
     ec2_client = boto3.client('ec2')
     ami_pattern = 'app_*'
-    jenkins_build = '40'
 
-    # get AMI List
+    # get AMI List by pattern
     ami_list = ec2_client.describe_images(
     Filters=[
         {
@@ -58,16 +57,21 @@ def clean_ami(num):
     ]
     )
 
-    pprint.pprint(ami_list['Images'])
+    # get AMI IDs which should be deleted
+    def ami_sort(e):
+        res = re.search('_(\d+)_', e['Name'])
+        return int(res[1])
 
-    # get AMI IDs
-    for i in ami_list['Images']:
-        print(i['ImageId'], i['Name'])
+    ami_list.sort(key=ami_sort)
 
+    if len(ami_list) > num:
+        ami_del = ami_list[:(len(ami_list) - num)]
+        for i in ami_del['ImageId']:
+            print(i)
 
 # run func
 if sys.argv[1] == 'update_hosts':
     update_hosts('MagentoAdmin', 'admin')
 
 if sys.argv[1] == 'clean_ami':
-    clean_ami(2)
+    clean_ami(1)
