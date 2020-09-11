@@ -74,7 +74,7 @@ def clean_ami(num):
             print('AMI Name: ' + i['Name'])
             print('AMI ID: ' + i['ImageId'])
 
-def clean_ebs_snapshots():
+def clean_ebs_snapshots(num):
     ec2_client = boto3.client('ec2')
     snapshot_pattern = 'app_*'
 
