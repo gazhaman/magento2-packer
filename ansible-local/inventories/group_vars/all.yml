@@ -10,3 +10,5 @@ git_root_dir_build: /var/www/html/current
 magento_root_dir_web: /var/www/html/current
 magento_root_dir_build: /var/www/html/current
 magento_view_dir: /var/www/html
+
+efs_mount_point: /var/www/html/share
