@@ -117,7 +117,7 @@ if sys.argv[1] == 'update_hosts':
     update_hosts('MagentoAdmin', 'admin')
 
 if sys.argv[1] == 'clean_ami':
-    clean_ami(1)
+    clean_ami(2)
 
 if sys.argv[1] == 'clean_ebs_snapshots':
-    clean_ebs_snapshots(1)
+    clean_ebs_snapshots(2)
