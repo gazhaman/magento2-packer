@@ -67,8 +67,9 @@ def clean_ami(num):
 
     if len(ami_list) > num:
         ami_del = ami_list[:(len(ami_list) - num)]
-        for i in ami_del['ImageId']:
-            print(i)
+        pprint.pprint(ami_del)
+        for i in ami_del:
+            print(i['ImageId'])
 
 # run func
 if sys.argv[1] == 'update_hosts':
