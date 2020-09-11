@@ -41,5 +41,28 @@ def update_hosts (tag_value, hosts_name):
 
     print('hosts file updated.\n' + hosts_name +':'+ ip)
 
-# run
-update_hosts('MagentoAdmin', 'admin')
+def clean_ami(num):
+    ec2_client = boto3.client('ec2')
+    ami_pattern = 'app_*'
+
+    # get AMI IDs
+    ami_list = ec2_client.describe_images(
+    Filters=[
+        {
+            'Name': 'name',
+            'Values': [
+                ami_pattern,
+            ]
+        },
+    ]
+    )
+
+    print(ami_list)
+
+
+# run func
+if sys.argv[1] == 'update_hosts':
+    update_hosts('MagentoAdmin', 'admin')
+
+if sys.argv[1] == 'clean_ami':
+    clean_ami(2)
