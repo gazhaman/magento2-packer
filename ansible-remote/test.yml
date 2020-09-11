@@ -1,0 +1,12 @@
+- name: Host
+  hosts: 127.0.0.1
+  become: yes
+  tasks:
+#-------------------------- Git checkout ----------------------------------
+    - name: Unlink 'var' 'media' 'etc' if exists
+      tags: unlink_share
+      file: path={{item}} state=absent
+      loop:
+        - '{{magento_root_dir_build}}/etc'
+        - '{{magento_root_dir_build}}/var'
+        - '{{magento_root_dir_build}}/pub/media'
