@@ -3,6 +3,10 @@
   become: yes
   tasks:
 #-------------------------- Git checkout ----------------------------------
+    - name: Unmount EFS
+      tags: unmount_efs
+      mount: path={{efs_mount_point}} state=unmounted
+
     - name: Unlink 'var' 'media' 'etc' if exists
       tags: unlink_share
       file: path={{item}} state=absent

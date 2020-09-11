@@ -11,3 +11,5 @@ magento_root_dir_web: /var/www/html/current
 magento_root_dir_build: /var/www/html/current
 
 admin_ip: 172.31.60.152
+
+efs_mount_point: /var/www/html/share
