@@ -20,3 +20,11 @@
         - '{{magento_root_dir_build}}/app/etc'
         - '{{magento_root_dir_build}}/var'
         - '{{magento_root_dir_build}}/pub/media'
+
+    - name: Clean mount folders
+      tags: clean_mount_folders
+      file: path={{item}} state=absent
+      loop:
+        - '{{magento_root_dir_build}}/pub/media'
+        - '{{magento_root_dir_build}}/var'
+        - '{{magento_root_dir_build}}/app/etc'
