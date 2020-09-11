@@ -28,3 +28,16 @@
         - '{{magento_root_dir_build}}/pub/media'
         - '{{magento_root_dir_build}}/var'
         - '{{magento_root_dir_build}}/app/etc'
+
+    - name: Create symlinks
+      tags: create_symlinks
+      file:
+        src: '{{efs_mount_point}}/{{item.src}}'
+        dest: '{{magento_root_dir_build}}/{{item.dst}}'
+        owner: nginx
+        group: nginx
+        state: link
+      loop:
+        - { src: var, dest: var }
+        - { src: etc, dest: app/etc }
+        - { src: media, dest: pub/media }
