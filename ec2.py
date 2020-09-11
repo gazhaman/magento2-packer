@@ -89,7 +89,18 @@ def clean_ebs_snapshots(num):
         },
     ]
     )
-    pprint.pprint(snap_res['Snapshots'])
+    snap_list = snap_res['Snapshots']
+
+    # get IDs which should be deleted
+    def snap_sort(e):
+        for i in e['Tags']:
+            if i['Key'] == 'Name':
+                res = re.search('_(\d+)_', i['Value'])
+                break
+        return int(res[1])
+
+    snap_list.sort(key=snap_sort)
+    print(snap_list)
 
 
 
