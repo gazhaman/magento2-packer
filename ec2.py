@@ -44,8 +44,9 @@ def update_hosts (tag_value, hosts_name):
 def clean_ami(num):
     ec2_client = boto3.client('ec2')
     ami_pattern = 'app_*'
+    jenkins_build = '40'
 
-    # get AMI IDs
+    # get AMI List
     ami_list = ec2_client.describe_images(
     Filters=[
         {
@@ -57,7 +58,10 @@ def clean_ami(num):
     ]
     )
 
-    pprint.pprint(ami_list)
+    pprint.pprint(ami_list['Images'])
+
+    # get AMI IDs
+
 
 
 # run func
