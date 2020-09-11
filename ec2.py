@@ -61,7 +61,8 @@ def clean_ami(num):
     pprint.pprint(ami_list['Images'])
 
     # get AMI IDs
-
+    for i in ami_list['Images']:
+        print(i['ImageId'], i['Name'])
 
 
 # run func
