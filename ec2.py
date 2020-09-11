@@ -46,7 +46,7 @@ def clean_ami(num):
     ami_pattern = 'app_*'
 
     # get AMI List by pattern
-    ami_list = ec2_client.describe_images(
+    ami_res = ec2_client.describe_images(
     Filters=[
         {
             'Name': 'name',
@@ -56,7 +56,8 @@ def clean_ami(num):
         },
     ]
     )
-    pprint.pprint(ami_list)
+    ami_list = ami_res['Images']
+
     # get AMI IDs which should be deleted
     def ami_sort(e):
         res = re.search('_(\d+)_', e['Name'])
