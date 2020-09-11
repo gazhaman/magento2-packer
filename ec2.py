@@ -67,9 +67,11 @@ def clean_ami(num):
 
     if len(ami_list) > num:
         ami_del = ami_list[:(len(ami_list) - num)]
-        pprint.pprint(ami_del)
+        print('Deregistered AMI:\n\n')
         for i in ami_del:
-            print(i['ImageId'])
+            res = ec2_client.deregister_image(ImageId=i['ImageId'])
+            print('AMI Name: ' + i['Name'])
+            print('AMI ID: ' + i['ImageId'])
 
 # run func
 if sys.argv[1] == 'update_hosts':
