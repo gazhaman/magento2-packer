@@ -100,7 +100,7 @@ def clean_ebs_snapshots(num):
         return int(res[1])
 
     snap_list.sort(key=snap_sort)
-    print(snap_list)
+    pprint.pprint(snap_list)
 
 
 
