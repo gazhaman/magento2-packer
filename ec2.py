@@ -57,7 +57,7 @@ def clean_ami(num):
     ]
     )
 
-    print(ami_list)
+    pprint.pprint(ami_list)
 
 
 # run func
