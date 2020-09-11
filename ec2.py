@@ -82,7 +82,7 @@ def clean_ebs_snapshots(num):
     snap_res = ec2_client.describe_snapshots(
     Filters=[
         {
-            'Name': 'name',
+            'Name': 'tag:Name',
             'Values': [
                 snapshot_pattern,
             ]
