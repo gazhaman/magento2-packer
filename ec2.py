@@ -65,13 +65,33 @@ def clean_ami(num):
 
     ami_list.sort(key=ami_sort)
 
+    # delete AMIs
     if len(ami_list) > num:
         ami_del = ami_list[:(len(ami_list) - num)]
-        print('Deregistered AMI:\n\n')
+        print('Deregistered AMI:\n')
         for i in ami_del:
             res = ec2_client.deregister_image(ImageId=i['ImageId'])
             print('AMI Name: ' + i['Name'])
             print('AMI ID: ' + i['ImageId'])
+
+def clean_ebs_snapshots():
+    ec2_client = boto3.client('ec2')
+    snapshot_pattern = 'app_*'
+
+    # get Snapshot List by pattern
+    snap_res = ec2_client.describe_snapshots(
+    Filters=[
+        {
+            'Name': 'name',
+            'Values': [
+                snapshot_pattern,
+            ]
+        },
+    ]
+    )
+    pprint.pprint(snap_res)
+
+
 
 # run func
 if sys.argv[1] == 'update_hosts':
@@ -79,3 +99,6 @@ if sys.argv[1] == 'update_hosts':
 
 if sys.argv[1] == 'clean_ami':
     clean_ami(1)
+
+if sys.argv[1] == 'clean_ebs_snapshots':
+    clean_ebs_snapshots(1)
