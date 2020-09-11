@@ -7,6 +7,6 @@
       tags: unlink_share
       file: path={{item}} state=absent
       loop:
-        - '{{magento_root_dir_build}}/etc'
+        - '{{magento_root_dir_build}}/app/etc'
         - '{{magento_root_dir_build}}/var'
         - '{{magento_root_dir_build}}/pub/media'
