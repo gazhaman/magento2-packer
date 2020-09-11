@@ -37,6 +37,7 @@
         owner: nginx
         group: nginx
         state: link
+        force: yes
       loop:
         - { src: var, dst: var }
         - { src: etc, dst: app/etc }
