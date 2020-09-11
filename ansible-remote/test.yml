@@ -7,6 +7,12 @@
       tags: unmount_efs
       mount: path={{efs_mount_point}} state=unmounted
 
+    - name: Check unmount
+      tags: unmount_check
+      shell: "mount -l | grep {{efs_mount_point}}"
+      register: check_result
+      failed_when: "{{efs_mount_point}} in check_result.stdout"
+
     - name: Unlink 'var' 'media' 'etc' if exists
       tags: unlink_share
       file: path={{item}} state=absent
