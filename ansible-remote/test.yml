@@ -11,7 +11,7 @@
       tags: unmount_check
       shell: "mount -l | grep {{efs_mount_point}}"
       register: check_result
-      failed_when: "{{efs_mount_point}} in check_result.stdout"
+      failed_when: "'{{efs_mount_point}}' in check_result.stdout"
 
     - name: Unlink 'var' 'media' 'etc' if exists
       tags: unlink_share
