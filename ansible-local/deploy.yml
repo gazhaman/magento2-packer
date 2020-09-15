@@ -61,9 +61,9 @@
       tags: composer_install
       command: 'chdir={{magento_root_dir_build}} /usr/local/bin/composer install --prefer-dist'
 
-#    - name: Apply patches
-#      tags: apply_patches_build
-#      shell: "cd {{magento_root_dir_build}}/ && for i in patches/*.patch; do echo $i && patch -p1 < $i; done"
+    - name: Apply patches
+      tags: apply_patches_build
+      shell: "cd {{magento_root_dir_build}}/ && for i in patches/*.patch; do echo $i && patch -p1 < $i; done"
 
     - name: Enable all modules
       tags: enable_modules_build
